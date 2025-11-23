@@ -625,22 +625,20 @@
             
             // Return to Survey functionality
             const returnSurveyBtn = document.getElementById('return-survey-btn');
-            returnSurveyBtn.addEventListener('click', () => {
-                // Go back to the page that linked here and close current page
-                if (document.referrer && document.referrer !== window.location.href) {
-                    // Navigate back to referrer
-                    window.location.href = document.referrer;
-                    // Attempt to close current tab/window after navigation
-                    setTimeout(() => {
-                        window.close();
-                    }, 100);
-                } else {
-                    // Fallback: use browser back button then close
-                    window.history.back();
-                    setTimeout(() => {
-                        window.close();
-                    }, 100);
-                }
+            returnSurveyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const surveyUrl = 'https://gmusom.az1.qualtrics.com/jfe/form/SV_5b8gzO5cMPxKY9U';
+                
+                // Navigate to survey
+                window.location.href = surveyUrl;
+                
+                // Try to close the window (works if opened by JavaScript/popup)
+                // Note: Browsers block closing tabs that user opened directly
+                setTimeout(() => {
+                    window.close();
+                }, 100);
             });
             
             // Tap to Start functionality
